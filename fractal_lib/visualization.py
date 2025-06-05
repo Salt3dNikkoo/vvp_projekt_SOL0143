@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
+from matplotlib.backend_bases import MouseEvent
 from generation import generate_mandelbrot, generate_julia
 matplotlib.use('TkAgg')
 
@@ -61,7 +62,7 @@ def interactive_fractal_viewer() -> None:
     ax_reset = plt.axes([0.65, 0.15, 0.2, 0.05])
     reset_button = Button(ax_reset, 'Reset zoom')
 
-    def update(val=None):
+    def update(val: Optional[Any] = None) -> None:
          """
         Překresluje fraktál na základě aktuálních hodnot získaných ze všech ovládacích prvků:
         sliderů (počet iterací, parametr c), radiobuttonů (výběr typu fraktálu a barevného schématu),
@@ -90,7 +91,7 @@ def interactive_fractal_viewer() -> None:
         image.set_cmap(cmap)
         fig.canvas.draw_idle()
 
-    def on_scroll(event):
+    def on_scroll(event: MouseEvent) -> None:
         nonlocal current_limits
         base_scale = 0.9
         xdata, ydata = event.xdata, event.ydata
@@ -108,7 +109,7 @@ def interactive_fractal_viewer() -> None:
         current_limits = [new_xmin, new_xmin + new_width, new_ymin, new_ymin + new_height]
         update()
 
-    def reset_zoom(event):
+    def reset_zoom(event: MouseEvent) -> None:
         nonlocal current_limits
         current_limits = [-2.0, 1.0, -1.5, 1.5]
         ax.set_xlim(current_limits[0], current_limits[1])
