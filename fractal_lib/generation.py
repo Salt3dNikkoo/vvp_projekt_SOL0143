@@ -7,14 +7,13 @@ from numba import njit, prange
 import numpy as np
 
 @njit(parallel=True)
-def generate_mandelbrot(
-    x_min: float, 
-    x_max: float, 
-    y_min: float, 
-    y_max: float, 
-    width: int, 
-    height: int, 
-    max_iter: int) -> np.ndarray:
+def generate_mandelbrot(x_min: float,
+                        x_max: float,
+                        y_min: float,
+                        y_max: float,
+                        width: int,
+                        height: int,
+                        max_iter: int) -> np.ndarray:
     """
     Generuje obraz Mandelbrotovy množiny.
 
@@ -48,15 +47,14 @@ def generate_mandelbrot(
     return result
 
 @njit(parallel=True)
-def generate_julia(
-    x_min: float, 
-    x_max: float, 
-    y_min: float, 
-    y_max: float, 
-    width: int, 
-    height: int, 
-    c: complex, 
-    max_iter: int) -> np.ndarray:
+def generate_julia(x_min: float,
+                   x_max: float,
+                   y_min: float,
+                   y_max: float,
+                   width: int,
+                   height: int,
+                   c: complex,
+                   max_iter: int) -> np.ndarray:
     """
     Generuje obraz Juliovy množiny pro daný parametr c.
 
