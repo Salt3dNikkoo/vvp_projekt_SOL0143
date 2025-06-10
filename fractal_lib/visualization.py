@@ -8,7 +8,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
 from matplotlib.backend_bases import MouseEvent
-from generation import generate_mandelbrot, generate_julia
+from .generation import generate_mandelbrot, generate_julia
+from typing import Optional, Any
 matplotlib.use('TkAgg')
 
 def interactive_fractal_viewer() -> None:
@@ -28,7 +29,7 @@ def interactive_fractal_viewer() -> None:
     plt.subplots_adjust(left=0.25, bottom=0.4)
 
     current_limits = [x_min, x_max, y_min, y_max]
-    
+
     # Generování počátečních dat Mandelbrotovy množiny
     data = generate_mandelbrot(x_min, x_max, y_min, y_max, width, height, initial_max_iter)
     image = ax.imshow(data, cmap='inferno', extent=[x_min, x_max, y_min, y_max])
@@ -63,11 +64,6 @@ def interactive_fractal_viewer() -> None:
     reset_button = Button(ax_reset, 'Reset zoom')
 
     def update(val: Optional[Any] = None) -> None:
-         """
-        Překresluje fraktál na základě aktuálních hodnot získaných ze všech ovládacích prvků:
-        sliderů (počet iterací, parametr c), radiobuttonů (výběr typu fraktálu a barevného schématu),
-        a aktuálního zoomu (výřez oblasti).
-        """
         nonlocal image, current_limits
         max_iter = int(iter_slider.val)
         c = complex(c_real_slider.val, c_imag_slider.val)
@@ -124,3 +120,4 @@ def interactive_fractal_viewer() -> None:
 
     # Zobrazení interaktivního okna
     plt.show()
+
